@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Command Line Interface
 layout: doc
 ---
 <!-- Note: No pull requests accepted for this file. See README.md in the root directory for details. -->
@@ -24,6 +24,10 @@ or:
 
     eslint lib/**
 
+Please note that when passing a glob as a parameter, it will be expanded by your shell. The results of the expansion can vary depending on your shell, and its configuration. If you want to use node `glob` syntax, you have to quote your parameter (using double quotes if you need it to run in Windows), as follows:
+
+    eslint "lib/**"
+
 ## Options
 
 The command line utility has several options. You can view the options by running `eslint -h`.
@@ -37,6 +41,7 @@ Basic configuration:
   --ext [String]             Specify JavaScript file extensions - default: .js
   --global [String]          Define global variables
   --parser String            Specify the parser to be used - default: espree
+  --parser-options Object    Specify parser options
 
 Caching:
   --cache                    Only check changed files - default: false
@@ -67,7 +72,7 @@ Handling warnings:
 Output:
   -o, --output-file path::String  Specify file to write report to
   -f, --format String        Use a specific output format - default: stylish
-  --no-color                 Disable color in piped output
+  --color, --no-color        Force enabling/disabling of color
 
 Miscellaneous:
   --init                     Run config initialization wizard - default: false
@@ -75,7 +80,7 @@ Miscellaneous:
   --debug                    Output debugging information
   -h, --help                 Show help
   -v, --version              Outputs the version number
-  --no-inline-config         Prevent comments from changing eslint rules -
+  --no-inline-config         Prevent comments from changing config or rules -
                              default: false
   --print-config             Print the configuration to be used
 ```
@@ -127,18 +132,22 @@ Examples:
 
 #### `--ext`
 
-This option allows you to specify which file extensions ESLint will use when searching for JavaScript files. By default, it uses `.js` as the only file extension.
+This option allows you to specify which file extensions ESLint will use when searching for JavaScript files in the directories you specify.
+By default, it uses `.js` as the only file extension.
 
 Examples:
 
     # Use only .js2 extension
-    eslint --ext .js2
+    eslint . --ext .js2
 
     # Use both .js and .js2
-    eslint --ext .js --ext .js2
+    eslint . --ext .js --ext .js2
 
     # Also use both .js and .js2
-    eslint --ext .js,.js2
+    eslint . --ext .js,.js2
+
+**Note:** If you use a glob pattern, then `--ext` is ignored
+For example, `eslint lib/* --ext .js` will match all files within the `lib/` directory, regardless of extension.
 
 #### `--global`
 
@@ -152,6 +161,15 @@ Examples:
 #### `--parser`
 
 This option allows you to specify a parser to be used by eslint. By default, `espree` will be used.
+
+#### `--parser-options`
+
+This option allows you to specify parser options to be used by eslint.
+
+Examples:
+
+    echo '3 ** 4' | eslint --stdin --parser-options=ecmaVersion:6 # will fail with a parsing error
+    echo '3 ** 4' | eslint --stdin --parser-options=ecmaVersion:7 # succeeds, yay!
 
 ### Caching
 
@@ -173,7 +191,7 @@ In case a directory is specified a cache file will be created inside the specifi
 
 Example:
 
-    eslint 'src/**/*.js' --cache --cache-location '/Users/user/.eslintcache/'
+    eslint "src/**/*.js" --cache --cache-location "/Users/user/.eslintcache/"
 
 ### Specifying rules and plugins
 
@@ -228,6 +246,15 @@ Disables excluding of files from `.eslintignore` and `--ignore-path` files.
 Example:
 
     eslint --no-ignore file.js
+
+#### `--ignore-pattern`
+
+This option allows you to specify patterns of files to ignore (in addition to those in `.eslintignore`). You can repeat the option to provide multiple patterns. The supported syntax is the same as in the `.eslintignore` file.
+
+Example:
+
+    eslint --ignore-pattern '/lib/' --ignore-pattern '/src/vendor/*' .
+
 
 ### Using stdin
 
@@ -311,12 +338,13 @@ When specified, the given format is output to the console. If you'd like to save
 
 This saves the output into the `results.txt` file.
 
-#### `--no-color`
+#### `--color`, `--no-color`
 
-Disable color in piped output.
+This option forces the enabling/disabling of colorized output. You can use this to override the default behavior, which is to enable colorized output unless no TTY is detected, such as when when piping `eslint` through `cat` or `less`.
 
-Example:
+Examples:
 
+    eslint --color file.js | cat
     eslint --no-color file.js
 
 ### Miscellaneous

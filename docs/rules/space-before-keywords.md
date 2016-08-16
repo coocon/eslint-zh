@@ -4,9 +4,11 @@ layout: doc
 ---
 <!-- Note: No pull requests accepted for this file. See README.md in the root directory for details. -->
 
-# Require or disallow spaces before keywords (space-before-keywords)
+# space-before-keywords: enforce consistent spacing before keywords
 
-**Replacement notice**: This rule was removed in ESLint v2.0 and replaced by [keyword-spacing](keyword-spacing) rule.
+(removed) This rule was **removed** in ESLint v2.0 and **replaced** by the [keyword-spacing](keyword-spacing) rule.
+
+(fixable) The `--fix` option on the [command line](../user-guide/command-line-interface#fix) automatically fixed problems reported by this rule.
 
 Keywords are syntax elements of JavaScript, such as `function` and `if`. These identifiers have special meaning to the language and so often appear in a different color in code editors. As an important part of the language, style guides often refer to the spacing that should be used around keywords. For example, you might have a style guide that says keywords should be always be preceded by spaces, which would mean `if-else` statements must look like this:
 
@@ -19,8 +21,6 @@ if (foo) {
 ```
 
 Of course, you could also have a style guide that disallows spaces before keywords.
-
-**Fixable:** This rule is automatically fixable using the `--fix` flag on the command line.
 
 ## Rule Details
 
@@ -39,7 +39,7 @@ this behaviour, consider using the [block-spacing](block-spacing) rule.
 The following patterns are considered errors when configured `"never"`:
 
 ```js
-/*eslint space-before-keywords: [2, "never"]*/
+/*eslint space-before-keywords: ["error", "never"]*/
 
 if (foo) {
     // ...
@@ -58,7 +58,7 @@ try {} catch(e) {}
 The following patterns are not considered errors when configured `"never"`:
 
 ```js
-/*eslint space-before-keywords: [2, "never"]*/
+/*eslint space-before-keywords: ["error", "never"]*/
 
 if (foo) {
     // ...
@@ -74,7 +74,7 @@ try{}catch(e) {}
 The following patterns are considered errors when configured `"always"`:
 
 ```js
-/*eslint space-before-keywords: [2, "always"]*/
+/*eslint space-before-keywords: ["error", "always"]*/
 /*eslint-env es6*/
 
 if (foo) {
@@ -93,7 +93,7 @@ function bar() {
 The following patterns are not considered errors when configured `"always"`:
 
 ```js
-/*eslint space-before-keywords: [2, "always"]*/
+/*eslint space-before-keywords: ["error", "always"]*/
 /*eslint-env es6*/
 
 if (foo) {

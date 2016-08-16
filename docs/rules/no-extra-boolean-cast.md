@@ -4,7 +4,7 @@ layout: doc
 ---
 <!-- Note: No pull requests accepted for this file. See README.md in the root directory for details. -->
 
-# Disallow Extra Boolean Casts (no-extra-boolean-cast)
+# disallow unnecessary boolean casts (no-extra-boolean-cast)
 
 In contexts such as an `if` statement's test where the result of the expression will already be coerced to a Boolean, casting to a Boolean via double negation (`!!`) or a `Boolean` call is unnecessary. For example, these `if` statements are equivalent:
 
@@ -24,12 +24,12 @@ if (foo) {
 
 ## Rule Details
 
-This rule aims to eliminate the use of Boolean casts in an already Boolean context.
+This rule disallows unnecessary boolean casts.
 
 Examples of **incorrect** code for this rule:
 
 ```js
-/*eslint no-extra-boolean-cast: 2*/
+/*eslint no-extra-boolean-cast: "error"*/
 
 var foo = !!!bar;
 
@@ -63,7 +63,7 @@ for (; !!foo; ) {
 Examples of **correct** code for this rule:
 
 ```js
-/*eslint no-extra-boolean-cast: 2*/
+/*eslint no-extra-boolean-cast: "error"*/
 
 var foo = !!bar;
 var foo = Boolean(bar);

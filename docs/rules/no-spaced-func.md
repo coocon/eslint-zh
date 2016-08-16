@@ -6,9 +6,9 @@ layout: doc
 
 # Disallow Spaces in Function Calls (no-spaced-func)
 
-While it's possible to have whitespace between the name of a function and the parentheses that execute it, such patterns tend to look more like errors.
+(fixable) The `--fix` option on the [command line](../user-guide/command-line-interface#fix) automatically fixes problems reported by this rule.
 
-**Fixable:** This rule is automatically fixable using the `--fix` flag on the command line.
+While it's possible to have whitespace between the name of a function and the parentheses that execute it, such patterns tend to look more like errors.
 
 ## Rule Details
 
@@ -21,7 +21,7 @@ fn ()
 The following patterns are considered problems:
 
 ```js
-/*eslint no-spaced-func: 2*/
+/*eslint no-spaced-func: "error"*/
 
 fn ()
 
@@ -32,11 +32,10 @@ fn
 The following patterns are not considered problems:
 
 ```js
-/*eslint no-spaced-func: 2*/
+/*eslint no-spaced-func: "error"*/
 
 fn()
 ```
-
 
 ## Version
 

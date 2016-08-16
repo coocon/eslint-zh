@@ -6,6 +6,8 @@ layout: doc
 
 # Require Spaces Around Infix Operators (space-infix-ops)
 
+(fixable) The `--fix` option on the [command line](../user-guide/command-line-interface#fix) automatically fixes problems reported by this rule.
+
 While formatting preferences are very personal, a number of style guides require spaces around operators, such as:
 
 ```js
@@ -20,8 +22,6 @@ var sum = i+++2;
 
 While this is valid JavaScript syntax, it is hard to determine what the author intended.
 
-**Fixable:** This rule is automatically fixable using the `--fix` flag on the command line.
-
 ## Rule Details
 
 This rule is aimed at ensuring there are spaces around infix operators.
@@ -31,7 +31,7 @@ This rule is aimed at ensuring there are spaces around infix operators.
 This rule accepts a single options argument with the following defaults:
 
 ```json
-"space-infix-ops": [2, {"int32Hint": false}]
+"space-infix-ops": ["error", {"int32Hint": false}]
 ```
 
 ### `int32Hint`
@@ -45,7 +45,7 @@ var foo = bar|0; // `foo` is forced to be signed 32 bit integer
 The following patterns are considered problems:
 
 ```js
-/*eslint space-infix-ops: 2*/
+/*eslint space-infix-ops: "error"*/
 /*eslint-env es6*/
 
 a+b
@@ -66,7 +66,7 @@ function foo(a=0) { }
 The following patterns are not considered problems:
 
 ```js
-/*eslint space-infix-ops: 2*/
+/*eslint space-infix-ops: "error"*/
 /*eslint-env es6*/
 
 a + b

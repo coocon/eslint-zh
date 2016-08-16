@@ -9,7 +9,7 @@ layout: doc
 Some developers declare multiple var statements on the same line:
 
 ```js
-var foo, bar, baz = 0;
+var foo, bar, baz;
 ```
 
 Others prefer to declare one var per line.
@@ -17,7 +17,7 @@ Others prefer to declare one var per line.
 ```js
 var foo,
     bar,
-    baz = 0;
+    baz;
 ```
 
 This rule enforces a consistent style across the entire project.
@@ -30,13 +30,13 @@ This rule enforces a consistent coding style where newlines are required or disa
 
 This rule takes one option, a string, which can be:
 
-* `"always"` enforces a newline around each variable declaration (default)
-* `"initializations"` enforces a newline around a variable initialization
+* `"always"` enforces a newline around each variable declaration
+* `"initializations"` enforces a newline around each variable initialization (default)
 
 The following patterns are considered problems when set to `"always"`:
 
 ```js
-/*eslint one-var-declaration-per-line: [2, "always"]*/
+/*eslint one-var-declaration-per-line: ["error", "always"]*/
 /*eslint-env es6*/
 
 var a, b;
@@ -49,7 +49,7 @@ const a = 0, b = 0;
 The following patterns are not considered problems when set to `"always"`:
 
 ```js
-/*eslint one-var-declaration-per-line: [2, "always"]*/
+/*eslint one-var-declaration-per-line: ["error", "always"]*/
 /*eslint-env es6*/
 
 var a,
@@ -62,7 +62,7 @@ let a,
 The following patterns are considered problems when set to `"initializations"`:
 
 ```js
-/*eslint one-var-declaration-per-line: [2, "initializations"]*/
+/*eslint one-var-declaration-per-line: ["error", "initializations"]*/
 /*eslint-env es6*/
 
 var a, b, c = 0;
@@ -74,7 +74,7 @@ let a,
 The following patterns are not considered problems when set to `"initializations"`:
 
 ```js
-/*eslint one-var-declaration-per-line: [2, "initializations"]*/
+/*eslint one-var-declaration-per-line: ["error", "initializations"]*/
 /*eslint-env es6*/
 
 var a, b;
